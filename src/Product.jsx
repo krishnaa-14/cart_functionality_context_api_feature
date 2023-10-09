@@ -1,8 +1,13 @@
-const Product = ({products, id, title, imageUrl, price, cartItems, setCartItems}) => {
+import {useContext} from 'react';
+import { CartContext } from './contexts/CartContext';
+
+const Product = ({products, id, title, imageUrl, price}) => {
     
+    const {cartItems, setCartItems} = useContext(CartContext);
+
     const addItemToCart = (id) => {
-        const item = products.filter(product => product.id === id);
-        setCartItems(...cartItems, item);
+        const item = products.find(product => product.id === id);
+        setCartItems([...cartItems, item]);
     }
 
     const removeItemFromCart = (id) => {
@@ -10,7 +15,7 @@ const Product = ({products, id, title, imageUrl, price, cartItems, setCartItems}
 
         setCartItems(newItems);
     }
-    
+
     return (
         <div style = {{display : "flex", flexDirection : "column", justifyContent : "center", alignItems : "center", border : "1px solid black", padding : "15px", width : "350px", height : "350px"}}>
             <div>
