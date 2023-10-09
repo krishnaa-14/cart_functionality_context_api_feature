@@ -1,9 +1,11 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import Product from './Product';
+import { CartContext } from './contexts/CartContext';
 
-const Products = ({cartItems, setCartItems}) => {
+const Products = () => {
 
     const [products, setProducts] = useState([]);
+    const {cartItems, setCartItems} = useContext(CartContext);
 
     const fetchProducts = async () => {
         const data = await fetch("https://dummyjson.com/products");
@@ -25,7 +27,7 @@ const Products = ({cartItems, setCartItems}) => {
                         products.map(product => {
                             return (
                                 <div key = {product.id} style = {{padding : "10px"}}>
-                                    <Product  products = {products} id = {product.id} cartItems = {cartItems} setCartItems = {setCartItems} title = {product.title} imageUrl = {product.thumbnail} price = {product.price}></Product>
+                                    <Product  products = {products} id = {product.id} title = {product.title} imageUrl = {product.thumbnail} price = {product.price}></Product>
                                 </div>
                             )
                         })
